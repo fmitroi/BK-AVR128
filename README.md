@@ -1,7 +1,7 @@
 # BK-AVR128 Development Board - Hardware Mapping
 
-![BK-AVR128 Development Board](AVR/resources/BK-AVR128.jpg)
-[Show Schematic](AVR/resources/BK-AVR128%20Schematic.pdf)
+![BK-AVR128 Development Board](resources/BK-AVR128.jpg)
+[Show Schematic](BK-AVR128%20Schematic.pdf)
 ## General Info
 - **MCU**: ATmega128
 - **Clock**: 8MHz External Crystal
