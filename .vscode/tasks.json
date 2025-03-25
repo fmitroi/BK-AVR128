@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Timer0Example",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "PROJECT=Timer0Example"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/AVR128"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Clean Timer0Example",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "clean",
+                "PROJECT=Timer0Example"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/AVR128"
+            }
+        }
+    ]
+}
