@@ -1,6 +1,8 @@
 # BK-AVR128 Development Board - Hardware Mapping
 
 ![BK-AVR128 Development Board](resources/BK-AVR128.jpg)
+
+![BK-AVR128 Development Board](resources/download.png)
 [Download or Show Schematic Here <<<<<>>>>>](resources/BK-AVR128%20Schematic.pdf)
 ## General Info
 - **MCU**: ATmega128
