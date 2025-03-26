@@ -1,3 +1,11 @@
+<div align="center">
+
+⚠️ **Work in Progress Alert!** ⚠️  
+*This BK-AVR128 project is actively under development. We’re cooking up new libraries, examples, and upgrades. Stay tuned for updates and jump in to contribute to the community!*  
+<span style="color: #0000FF">Thanks to the invaluable help of Grok 3, without which this project would lack elegance, thorough review, and improvements. Check out [https://grok.com](https://grok.com)!</span>
+
+</div>
+
 # BK-AVR128 Development Board
 
 ![BK-AVR128 Development Board](resources/BK-AVR128.jpg)
