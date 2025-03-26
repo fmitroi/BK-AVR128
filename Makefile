@@ -1,4 +1,4 @@
-# Configuración general
+# General Configuration
 MCU = atmega128
 F_CPU = 8000000UL
 CC = avr-gcc
@@ -7,71 +7,73 @@ CFLAGS = -mmcu=$(MCU) -DF_CPU=$(F_CPU) -Os -Wall -Ilib
 LDFLAGS = -mmcu=$(MCU)
 SIZE = avr-size
 
-# Variable que recibe el nombre del proyecto (la carpeta del proyecto)
-PROJECT ?= LedBlink  # Si no se pasa como parámetro, por defecto será LedBlink
+# Project variable (defaults to LedBlink if not specified)
+PROJECT ?= LedBlink
 
-# Librerías comunes
+# Common library sources
 LIB_SOURCES := $(wildcard lib/*.c)
 
-# Configuración de avrdude para Arduino UNO como ISP
+# avrdude configuration for Arduino UNO as ISP
 PROGRAMMER = stk500v1
 PORT = /dev/ttyArduinoUNO
 BAUD = 19200
 
-# Compilación por proyecto
+# Default target
 all:
-	@echo "🛠️ Compilando $(PROJECT)..."
+	@echo "🛠️ Compiling $(PROJECT)..."
 	$(CC) $(CFLAGS) $(LIB_SOURCES) $(PROJECT)/main.c -o $(PROJECT)/main.elf
 	$(OBJCOPY) -O ihex $(PROJECT)/main.elf $(PROJECT)/main.hex
-	@echo "✅ Compilación terminada."
-
-	# Mostrar uso de memoria (flash, datos y EEPROM)
+	@echo "✅ Compilation completed."
 	@echo "========================================="
-	@echo "Memoria Flash usada y libre:"
+	@echo "📏 Flash memory usage:"
 	@$(SIZE) --format=avr --mcu=$(MCU) $(PROJECT)/main.elf | awk '/Program/ {print $$0}'
 	@echo "========================================="
-	@echo "Memoria de datos usada y libre:"
+	@echo "📊 Data memory usage:"
 	@$(SIZE) --format=avr --mcu=$(MCU) $(PROJECT)/main.elf | awk '/Data/ {print $$0}'
 	@echo "========================================="
-	@echo "EEPROM usado y libre (se calcula a partir del tamaño total y la memoria total):"
+	@echo "💾 EEPROM usage:"
 	@$(SIZE) --format=avr --mcu=$(MCU) $(PROJECT)/main.elf | awk '/EEPROM/ {print $$0}'
 	@echo "========================================="
 
-# Mostrar uso de memoria
+# Show memory usage
 size:
-	@echo "📏 Mostrando uso de memoria para $(PROJECT)..."
+	@echo "📏 Showing memory usage for $(PROJECT)..."
 	$(SIZE) --mcu=$(MCU) -C $(PROJECT)/main.elf
 
-# Limpiar el proyecto
+# Clean project
 clean:
+	@echo "🧹 Cleaning $(PROJECT)..."
 	rm -f $(PROJECT)/main.elf $(PROJECT)/main.hex
-	@echo "🧹 Limpiado $(PROJECT)"
+	@echo "✅ Cleaned $(PROJECT)"
 
-# Subir el código al microcontrolador
+# Flash the microcontroller
 flash:
-	@echo "🚀 Subiendo código a $(PROJECT)..."
+	@echo "🚀 Flashing $(PROJECT) to ATmega128..."
 	avrdude -c $(PROGRAMMER) -p m128 -P $(PORT) -b $(BAUD) -U flash:w:$(PROJECT)/main.hex:i
-	@echo "✅ Código subido a ATmega128"
+	@echo "✅ Code flashed to ATmega128"
 
-# Verificar el código subido
+# Verify flashed code
 verify:
-	@echo "🔍 Verificando código en $(PROJECT)..."
+	@echo "🔍 Verifying code for $(PROJECT)..."
 	avrdude -c $(PROGRAMMER) -p m128 -P $(PORT) -b $(BAUD) -U flash:v:$(PROJECT)/main.hex:i
-	@echo "✅ Verificación completa"
+	@echo "✅ Verification complete"
 
-# Grabar los FUSES
+# Program fuses
 fuses:
-	@echo "⚙️ Grabando fuses (LFUSE=$(LFUSE), HFUSE=$(HFUSE))..."
+	@echo "⚙️ Programming fuses (LFUSE=$(LFUSE), HFUSE=$(HFUSE))..."
 	avrdude -c $(PROGRAMMER) -p m128 -P $(PORT) -b $(BAUD) \
 	-U lfuse:w:$(LFUSE):m \
 	-U hfuse:w:$(HFUSE):m \
 	-U efuse:w:$(EFUSE):m
-	@echo "✅ Fuses programados correctamente"
+	@echo "✅ Fuses programmed successfully"
 
-# Leer los FUSES (extra)
+# Read fuses
 read_fuses:
-	@echo "🔎 Leyendo fuses..."
+	@echo "🔎 Reading fuses..."
 	avrdude -c $(PROGRAMMER) -p m128 -P $(PORT) -b $(BAUD) \
 	-U lfuse:r:-:h \
 	-U hfuse:r:-:h \
 	-U efuse:r:-:h
+
+# Phony targets
+.PHONY: all size clean flash verify fuses read_fuses

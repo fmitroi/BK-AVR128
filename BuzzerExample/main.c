@@ -1,8 +1,8 @@
 #include "../lib/board.h"
 
 int main(void)
-{   
-    MCU_SavePowerInit();                            // Call function to deactivate periferals
+{  
+    BoardInit();                                    // Call function to deactivate periferals
     PORT_SetPinDirection(&PORTE,7,PORT_DIR_OUT);    // PE7 as Output
     PORT_WritePin(&PORTE,7,false);                  // Start PE7 in Low
 
