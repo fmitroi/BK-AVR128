@@ -21,6 +21,8 @@
  #define USE_BUZZER        ///< Enable buzzer.h
  #define USE_BUTTONS       ///< Enable buttons.h
  #define USE_74HC573       ///< Enable 74hc573.h
+ #define USE_I2C_LCD       ///< Enable i2c_lcd.h
+ #define USE_LCD           ///< Enable lcd.h
  
  #ifdef USE_CLOCK_CONFIG
      #include "clock_config.h"
@@ -43,6 +45,12 @@
  #ifdef USE_74HC573
      #include "74hc573.h"
  #endif
+ #ifdef USE_I2C_LCD
+     #include "i2c_lcd.h"
+ #endif
+ #ifdef USE_LCD
+ #include "lcd.h"
+#endif
  
  /**
   * @brief Initialize the BK-AVR128 board for low-power mode.
